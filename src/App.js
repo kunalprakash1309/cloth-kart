@@ -5,7 +5,7 @@ import Header from './components/header/header.component';
 import Homepage from './pages/homepage/homepage.componet';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import './App.css';
 
@@ -24,9 +24,24 @@ class App extends React.Component {
   componentDidMount() {
     // We need to add an observer to onAuthStateChanged to detect the initial state and subsequent state change
     // We can also use auth.currentUser but it is not persistent
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({currentUser: user})
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if(userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          })
+        })
+      }
+      else {
+        this.setState({currentUser: userAuth})
+      }
     })
+    console.log(this.state)
   }
 
   componentWillUnmount() {
@@ -35,7 +50,6 @@ class App extends React.Component {
   
 
   render(){
-    console.log(this.state.currentUser)
     return (
       <div>
           <Header currentUser={this.state.currentUser} />
