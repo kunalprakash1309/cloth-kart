@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 
+import {connect} from 'react-redux'
+
 import { auth } from '../../firebase/firebase.utils'
 
 import "./header.style.scss"
@@ -38,4 +40,10 @@ const Header = ({currentUser}) => (
     </div>
 );
 
-export default Header;
+// state is being passed from connect which is a HOC
+const mapStateToProps = state => ({
+	currentUser: state.user.currentUser
+})
+
+// connect is HOC which helps to connect component with reducer and store
+export default connect(mapStateToProps)(Header);
