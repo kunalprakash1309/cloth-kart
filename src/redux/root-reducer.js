@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import userReducer from './user/user.reducer'
+import cartReducer from './cart/cart.reducer'
 
 /*
     Reducer is pure function takes cuurentState(Initial state) and action as their paramater.
@@ -9,5 +10,6 @@ import userReducer from './user/user.reducer'
 */
 
 export default combineReducers({
-    user: userReducer
+    user: userReducer,
+    cart: cartReducer
 })

@@ -8,9 +8,11 @@ import { auth } from '../../firebase/firebase.utils'
 import "./header.style.scss"
 
 import {ReactComponent as Logo} from "../../assests/crown.svg"
+import CartIcon from '../cart-icon/cart-icon.component'
+import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 
 
-const Header = ({currentUser}) => (
+const Header = ({currentUser, hidden}) => (
     <div className='header'>
 		<Link className='logo-container' to='/'>
 			<Logo className='logo' />
@@ -36,13 +38,19 @@ const Header = ({currentUser}) => (
 					</Link>
 				)
 			}
+			<CartIcon />
 		</div>
+		{
+			hidden ? null: <CartDropdown/>
+		}
     </div>
 );
 
 // state is being passed from connect which is a HOC
 const mapStateToProps = state => ({
-	currentUser: state.user.currentUser
+	currentUser: state.user.currentUser,
+	hidden: state.cart.hidden
+	// random: state.cart.hidden another way of writing also
 })
 
 // connect is HOC which helps to connect component with reducer and store
