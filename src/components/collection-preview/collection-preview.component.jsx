@@ -12,8 +12,8 @@ const CollectionPreview = ({title,items}) => (
                 // do get called again and rerendered brand new whenever this 
                 // component rendered or rerendered
                 items.filter((item,idx) => idx<4)
-                .map(({id, ...otherItemProps}) => (
-                    <CollectionItem key={id} {...otherItemProps} />
+                .map((item) => (
+                    <CollectionItem key={item.id} item={item} />
                 ))
             }
         </div>
