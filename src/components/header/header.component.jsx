@@ -47,11 +47,13 @@ const Header = ({currentUser, hidden}) => (
 );
 
 // state is being passed from connect which is a HOC
-const mapStateToProps = state => ({
+const mapStateToProps = state => {
+	console.log("Inside Header component")
+return {
 	currentUser: state.user.currentUser,
 	hidden: state.cart.hidden
 	// random: state.cart.hidden another way of writing also
-})
+}}
 
 // connect is HOC which helps to connect component with reducer and store
 export default connect(mapStateToProps)(Header);
