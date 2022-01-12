@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux'
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 import userReducer from './user/user.reducer'
 import cartReducer from './cart/cart.reducer'
@@ -8,8 +10,15 @@ import cartReducer from './cart/cart.reducer'
     Reducer fucntion return a new object i.e state
 
 */
+const persistConfig = {
+    key: 'primary',
+    storage,
+    whitelist: ['cart']
+}
 
-export default combineReducers({
+const rootReducer = combineReducers({
     user: userReducer,
     cart: cartReducer
 })
+
+export default persistReducer(persistConfig, rootReducer)
