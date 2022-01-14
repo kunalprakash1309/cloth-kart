@@ -1,5 +1,13 @@
-const SHOP_DATA = [
-  {
+/*
+Initially SHOP_DATA contains collection in form of list. Problem in keeping like this is that
+if SHOP_DATA contains 100 of list if id match to 100th element which we want in selectCollection selector in 
+shop.selector.js using find method
+
+By changing it to object it use hash table which is faster than array
+*/
+
+const SHOP_DATA = {
+  hats: {
     id: 1,
     title: 'Hats',
     routeName: 'hats',
@@ -60,7 +68,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  sneakers: {
     id: 2,
     title: 'Sneakers',
     routeName: 'sneakers',
@@ -115,7 +123,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  jackets: {
     id: 3,
     title: 'Jackets',
     routeName: 'jackets',
@@ -152,7 +160,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  womens: {
     id: 4,
     title: 'Womens',
     routeName: 'womens',
@@ -201,7 +209,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  mens: {
     id: 5,
     title: 'Mens',
     routeName: 'mens',
@@ -244,6 +252,6 @@ const SHOP_DATA = [
       }
     ]
   }
-];
+};
 
 export default SHOP_DATA;

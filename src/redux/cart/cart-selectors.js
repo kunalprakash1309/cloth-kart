@@ -3,6 +3,7 @@ import { createSelector } from 'reselect'
 // input selector
 const selectCart = state => state.cart
 
+// In createSelector cartItems got memoize not createSelector
 // createSelector accepts one or more input selectors which extract values from arguments,
 // and an "output selector that recieve the extracted values and should return a derived value"
 export const selectCartItems = createSelector(
