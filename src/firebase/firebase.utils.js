@@ -44,6 +44,51 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 }
 
+// export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+//     const collectionRef = firestore.collection(collectionKey)
+//     const snapShot = collectionRef.get()
+//     console.log(collectionRef.get())
+
+//     // If we do not use snapShot.empty it adds duplicate data in our firestore
+//     // i.e why we are running this app only once in our complete course.
+//     // if we want to add different collection in our collections we use given below method
+//     console.log((snapShot).empty)
+    
+//     // Batch is used for multiple write. If single of them return error then complete process move backward to zero
+//     // It helps to do all necessary multiple write at one time 
+//    const batch = firestore.batch()
+//     objectsToAdd.forEach(obj => {
+//         const newDocRef = collectionRef.doc()
+//         batch.set(newDocRef, obj)
+//     })
+
+//     return await batch.commit()
+// }
+
+// We are passing docs snapshot which contains all single doc refernce 
+export const convertCollectionsSnapshotToMap = (collections) => {
+
+    // we are using docs property which result in array of documents and mapping through each doc snapshot 
+    const transformedCollection = collections.docs.map(doc => {
+
+        // calling .data() gives all data inside single doc of collections collection
+        const { title, items } = doc.data();
+
+        return {
+            routeName: encodeURI(title.toLowerCase()), //encodeURI uses to convert string to URI readable string
+            id: doc.id,
+            title,
+            items
+        }
+    })
+    //console.log(transformedCollection) use this to know the use of below function
+    // actually we are return object in place of an array
+    return transformedCollection.reduce((acc, collection) => {
+        acc[collection.title.toLowerCase()] = collection;
+        return acc;
+    }, {})
+}
+
 // Gets the Auth service for the defualt app or given app
 export const auth = firebase.auth();
 export const firestore = firebase.firestore()

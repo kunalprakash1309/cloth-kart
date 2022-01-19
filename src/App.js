@@ -13,8 +13,9 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import { setCurrentUser } from './redux/user/user.actions';
 
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { selectCollectionsForPreview } from './redux/shop/shop.selectors'
 
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
 
 import './App.css';
 
@@ -26,7 +27,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props
+    const { setCurrentUser, collectionsArray } = this.props
 
     // We need to add an observer to onAuthStateChanged to detect the initial state and subsequent state change
     // We can also use auth.currentUser but it is not persistent
@@ -45,6 +46,10 @@ class App extends React.Component {
         setCurrentUser(userAuth)
       }
     })
+
+    // called only ones
+    // we are creatind important field in database i.e we are only sending title and items not id and route
+    ///addCollectionAndDocuments('collections', collectionsArray.map(({title, items}) => ({title, items})))
   }
 
   componentWillUnmount() {
@@ -81,7 +86,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionsForPreview
 })
 
 
