@@ -32,19 +32,27 @@ class ShopPage extends React.Component{
         const {updateCollections} = this.props
         // it only gets the refrence of collections collection
         const collectionRef = firestore.collection('collections')
-
-        // here snapShot is document snapshot of collections.
-        // onSnapshot gives snapshot of inside docs of collectionsRef and property like docs, empty and size etc 
-        collectionRef.onSnapshot(async snapShot => {
-
-            // Then we passing all docs snapshot to below function which present in firebase.utils.js 
-            // In simple term, we are passing whole docs refrence present in collectins collection
+        collectionRef.get().then(snapShot => {
             const collectionsMap = convertCollectionsSnapshotToMap(snapShot)
             updateCollections(collectionsMap)
             this.setState({
                 loading: false
             })
         })
+
+        //one of the way of doing
+        // here snapShot is document snapshot of collections.
+        // onSnapshot gives snapshot of inside docs of collectionsRef and property like docs, empty and size etc 
+        // collectionRef.onSnapshot(async snapShot => {
+
+        //     // Then we passing all docs snapshot to below function which present in firebase.utils.js 
+        //     // In simple term, we are passing whole docs refrence present in collectins collection
+        //     const collectionsMap = convertCollectionsSnapshotToMap(snapShot)
+        //     updateCollections(collectionsMap)
+        //     this.setState({
+        //         loading: false
+        //     })
+        // })
     }
 
     render() {
