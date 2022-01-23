@@ -37,3 +37,15 @@ export const selectCollection = memoize((collectionUrlParam) =>
             )
     ))
 */
+
+export const selectIsCollectionsFetching = createSelector(
+    [selectShop],
+    shop => shop.isFetching
+)
+
+// !! returns the boolean value. ie. !!NaN => false, !!0 => false, !!{} => true
+// it returns whether collection object is empty or not
+export const selectIsCollectionsLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.collections
+)
