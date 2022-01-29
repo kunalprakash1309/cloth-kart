@@ -5,7 +5,9 @@ import { Route } from 'react-router-dom'
 
 
 
-import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions'
+//import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions'
+
+import { fetchCollectionsStart } from '../../redux/shop/shop.actions'
 import CollectionOvervieContainer from '../../components/collection-overview/collection-overview.container'
 import CollectionPageContainer from '../collection/collection.container'
 
@@ -23,8 +25,8 @@ class ShopPage extends React.Component{
 
     componentDidMount() {
 
-        const {fetchCollectionsStartAsync} = this.props
-        fetchCollectionsStartAsync()
+        const {fetchCollectionsStart} = this.props
+        fetchCollectionsStart()
 
         //one of the way of doing
         // here snapShot is document snapshot of collections.
@@ -53,7 +55,7 @@ class ShopPage extends React.Component{
 }
 
 const mapDispathToProps = dispatch => ({
-    fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+    fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 })
 
 export default connect(null, mapDispathToProps)(ShopPage)
