@@ -17,6 +17,7 @@ const config = {
 firebase.initializeApp(config);
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
+        
     if (!userAuth) return
 
     const userRef = firestore.doc(`users/${userAuth.uid}`)
@@ -94,11 +95,11 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore()
 
 // provides GoogleAuthPRovider() class 
-const provider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 // ... Force account selection even when one account is available(to give option for choosing account from multiple options)
-provider.setCustomParameters({prompt: 'select_account'})
+googleProvider.setCustomParameters({prompt: 'select_account'})
 // use to give pop up auth for google
-export const signInWithGoogle = () => auth.signInWithPopup(provider)
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
 
 
 export default firebase;

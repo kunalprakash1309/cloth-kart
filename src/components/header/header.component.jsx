@@ -12,10 +12,10 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 import { selectCartHidden } from '../../redux/cart/cart-selectors'
 
-import { auth } from '../../firebase/firebase.utils'
+import { signOutStart } from '../../redux/user/user.actions'
 
 
-const Header = ({currentUser, hidden}) => (
+const Header = ({currentUser, hidden, signOutStart}) => (
     <HeaderContainer>
 		<LogoContainer to='/'>
 			<Logo  />
@@ -30,7 +30,7 @@ const Header = ({currentUser, hidden}) => (
 			{
 				currentUser ? 
 				(
-					<OptionLink as='div' onClick={() => auth.signOut()}>
+					<OptionLink as='div' onClick={signOutStart}>
 						SIGN OUT
 					</OptionLink>
 				)
@@ -54,6 +54,10 @@ const mapStateToProps = createStructuredSelector({
 	hidden: selectCartHidden
 })
 
+const mapDispatchToProps = (dispatch) => ({
+	signOutStart: () => dispatch(signOutStart())
+})
+
 // state is being passed from connect which is a HOC
 // const mapStateToProps = state => ({
 // 	currentUser: selectCurrentUser(state),
@@ -62,4 +66,4 @@ const mapStateToProps = createStructuredSelector({
 // })
 
 // connect is HOC which helps to connect component with reducer and store
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
