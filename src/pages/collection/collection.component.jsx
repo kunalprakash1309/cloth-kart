@@ -6,6 +6,19 @@ import { selectCollection } from '../../redux/shop/shop.selectors'
 import './collection.style.scss'
 
 const CollectionPage = ({collection}) => {
+
+    // example of useffect in componentWillUnmount
+    // useEffect(() => {
+    //     console.log('I am subscribing')
+    //     const unsubscribe = firestore.collection('collections').onSnapshot(snapshot => console.log(snapshot))
+
+    // this works as unsubscribing function
+    //     return () => {
+    //         console.log('I am unsubscribing')
+    //         unsubscribe()
+    //     }
+    // }, [])
+
     const { title, items } = collection
     return(
     <div className='collection-page'>

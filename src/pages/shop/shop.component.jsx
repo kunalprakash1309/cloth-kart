@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
-
-
 
 
 //import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions'
@@ -13,46 +11,46 @@ import CollectionPageContainer from '../collection/collection.container'
 
 
 
-
-
 // complete code is shifted to collection-overview component because now we need to 
 // add respective shop page(i.e hats, mens, etc). Because until now ShopPage only render
 // Collection-prieview component
 
 // need to change from fumctional to class component to store and fetch shot data from firestore and pass it to its children
-class ShopPage extends React.Component{
+const ShopPage = ({ match, fetchCollectionsStart }) => {
 
-
-    componentDidMount() {
-
-        const {fetchCollectionsStart} = this.props
+    useEffect(() => {
         fetchCollectionsStart()
+    }, [fetchCollectionsStart])
 
-        //one of the way of doing
-        // here snapShot is document snapshot of collections.
-        // onSnapshot gives snapshot of inside docs of collectionsRef and property like docs, empty and size etc 
-        // collectionRef.onSnapshot(async snapShot => {
+    // componentDidMount() {
 
-        //     // Then we passing all docs snapshot to below function which present in firebase.utils.js 
-        //     // In simple term, we are passing whole docs refrence present in collectins collection
-        //     const collectionsMap = convertCollectionsSnapshotToMap(snapShot)
-        //     updateCollections(collectionsMap)
-        //     this.setState({
-        //         loading: false
-        //     })
-        // })
-    }
+    //     const {fetchCollectionsStart} = this.props
+    //     fetchCollectionsStart()
 
-    render() {
-        const { match } = this.props
-        return (
-            <div className='shop-page' >
-                <Route exact path={`${match.path}`} component={CollectionOvervieContainer}/>
-                <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />
-            </div>
-        )
-    }
+    //     //one of the way of doing
+    //     // here snapShot is document snapshot of collections.
+    //     // onSnapshot gives snapshot of inside docs of collectionsRef and property like docs, empty and size etc 
+    //     // collectionRef.onSnapshot(async snapShot => {
+
+    //     //     // Then we passing all docs snapshot to below function which present in firebase.utils.js 
+    //     //     // In simple term, we are passing whole docs refrence present in collectins collection
+    //     //     const collectionsMap = convertCollectionsSnapshotToMap(snapShot)
+    //     //     updateCollections(collectionsMap)
+    //     //     this.setState({
+    //     //         loading: false
+    //     //     })
+    //     // })
+    // }
+
+
+    return (
+        <div className='shop-page' >
+            <Route exact path={`${match.path}`} component={CollectionOvervieContainer}/>
+            <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />
+        </div>
+    )
 }
+
 
 const mapDispathToProps = dispatch => ({
     fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
