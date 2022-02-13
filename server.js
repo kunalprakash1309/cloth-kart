@@ -1,16 +1,10 @@
-// const express = require('express')
-// const bodyParser = require('body-parser')
-// const path = require('path')
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
 
-import express from 'express'
-import bodyParser from 'body-parser'
-import path from 'path'
-import dotenv from 'dotenv'
-import Stripe from 'stripe'
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
-if (process.env.NODE_ENV !== 'production') dotenv.config()
-
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -28,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.listen(port, error => {
     if (error) throw error;
-    console.log('Server running on port ' + port);
+    console.log('Server running on port: ' + port);
 });
 
 app.post('/payment', (req, res) => {
