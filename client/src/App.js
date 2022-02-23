@@ -10,11 +10,10 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 
+import { GlobalStyle } from './global.styles';
+
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { selectCollectionsForPreview } from './redux/shop/shop.selectors'
-
-import './App.css';
-
 
 
 class App extends React.Component {
@@ -56,6 +55,7 @@ class App extends React.Component {
   render(){
     return (
       <div>
+          <GlobalStyle />
           <Header/>
           <Switch>
             <Route exact path="/" component={Homepage} />
